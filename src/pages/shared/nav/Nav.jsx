@@ -10,7 +10,7 @@ const Nav = () => {
 
     const handleLogout = () => {
         logOut()
-            .then(() => console.log("logout sucessfully"))
+            .then()
             .catch((error) => console.error(error))
     }
 

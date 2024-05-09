@@ -10,15 +10,15 @@ const SignUp = () => {
     const handleSignUp = (e) => {
         e.preventDefault()
         const form = e.target;
-        const name = form.name.value
+        // const name = form.name.value
         const email = form.email.value
         const password = form.password.value
-        const data = { email, password, name };
-        console.log(data);
+        // const data = { email, password, name };
+        // console.log(data);
         createUser(email,password)
-        .then((result) =>{
-            const user = result.user
-            console.log(user);
+        .then(() =>{
+            // const user = result.user
+            // console.log(user);
         })
         .catch(error =>{
             console.error(error)

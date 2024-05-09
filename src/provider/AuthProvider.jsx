@@ -19,17 +19,17 @@ const AuthProvider = ({ children }) => {
         setLoading(true)
         return createUserWithEmailAndPassword(auth, email, password);
     }
-    const signIn = (email,password) => {
+    const signIn = (email, password) => {
         setLoading(true)
-        return signInWithEmailAndPassword(auth,email,password);
+        return signInWithEmailAndPassword(auth, email, password);
     }
     const logOut = () => {
         setLoading(true)
         return signOut(auth)
     }
-    const profileUpdate =(name,photo) => {
+    const profileUpdate = (name, photo) => {
         setLoading(true)
-        return updateProfile(auth.currentUser,{
+        return updateProfile(auth.currentUser, {
             displayName: name,
             photoURL: photo
         })
@@ -37,30 +37,30 @@ const AuthProvider = ({ children }) => {
 
 
     // observer
-    useEffect(()=>{
-        const unSubscribe = onAuthStateChanged(auth,currentUser =>{
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, currentUser => {
             const userEmail = currentUser?.email || user?.email
             const loggedUser = { email: userEmail }
             setUser(currentUser)
             setLoading(false)
-            console.log("the observer is:",currentUser);
-            if(currentUser){
-                axios.post('http://localhost:5000/jwt',loggedUser,{withCredentials: true})
-                .then(res => {
-                    console.log("the token is:",res.data);
-                })
+            // console.log("the observer is:", currentUser);
+            if (currentUser) {
+                axios.post('https://car-doctor-server-v2-ashen.vercel.app/jwt', loggedUser, { withCredentials: true })
+                    .then(() => {
+                        // console.log("the token is:", res.data);
+                    })
             }
-            else{
-                axios.post('http://localhost:5000/logout',loggedUser,{withCredentials: true})
-                .then(res => {
-                    console.log("logout", res.data);
-                })
+            else {
+                axios.post('https://car-doctor-server-v2-ashen.vercel.app/logout', loggedUser, { withCredentials: true })
+                    .then(() => {
+                        // console.log("logout", res.data);
+                    })
             }
         })
         return () => {
             return unSubscribe()
         }
-    },[user])
+    }, [user])
 
     const authInfo = {
         user,

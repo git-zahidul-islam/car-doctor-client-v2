@@ -21,19 +21,19 @@ const Bookings = () => {
             .then(res => {
                 setBooking(res.data)
             })
-            
+
     }, [url, axiosSecure])
 
     const handleDelete = (id) => {
         console.log(id);
         const deleteConform = confirm("are you delete this")
         if (deleteConform) {
-            fetch(`http://localhost:5000/bookings/${id}`, {
+            fetch(`https://car-doctor-server-v2-ashen.vercel.app/bookings/${id}`, {
                 method: "DELETE"
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log("the data is deleted", data);
+                    // console.log("the data is deleted", data);
                     if (data.deletedCount > 0) {
                         alert("the data is deleted")
                         const remaining = booking.filter(book => book._id !== id)
@@ -44,7 +44,7 @@ const Bookings = () => {
     }
 
     const handleConfirm = (id) => {
-        fetch(`http://localhost:5000/bookings/${id}`, {
+        fetch(`https://car-doctor-server-v2-ashen.vercel.app/bookings/${id}`, {
             method: "PATCH",
 
             headers: {
@@ -54,7 +54,7 @@ const Bookings = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 if (data.modifiedCount > 0) {
                     // 
                     const remaining = booking.filter(book => book._id !== id)
@@ -62,8 +62,8 @@ const Bookings = () => {
                     updated.status = "confirm"
                     const newBooking = [updated, ...remaining]
                     setBooking(newBooking)
-                    console.log("the remaining id", remaining);
-                    console.log("which i update", updated);
+                    // console.log("the remaining id", remaining);
+                    // console.log("which i update", updated);
                 }
             })
     }

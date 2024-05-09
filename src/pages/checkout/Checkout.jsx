@@ -7,9 +7,9 @@ import { AuthContext } from "../../provider/AuthProvider";
 
 const Checkout = () => {
     const services = useLoaderData()
-    const {  title,_id, price,img } = services;
+    const { title, _id, price, img } = services;
     const { user } = useContext(AuthContext)
-    
+
 
 
     const handleCheckout = (e) => {
@@ -29,22 +29,22 @@ const Checkout = () => {
             service_id: _id,
             service_title: title,
         }
-        console.log(order);
+        // console.log(order);
 
-        fetch('http://localhost:5000/bookings',{
+        fetch('https://car-doctor-server-v2-ashen.vercel.app/bookings', {
             method: 'POST',
             headers: {
-                'content-type' : 'application/json'
+                'content-type': 'application/json'
             },
-            body : JSON.stringify(order)
+            body: JSON.stringify(order)
         })
-        .then(res => res.json())
-        .then(data => {
-            console.log("this data form backend",data);
-            if(data){
-                alert("your submit successfully")
-            }
-        })
+            .then(res => res.json())
+            .then(data => {
+                // console.log("this data form backend", data);
+                if (data) {
+                    alert("your submit successfully")
+                }
+            })
     }
 
     return (
