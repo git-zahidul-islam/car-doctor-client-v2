@@ -1,23 +1,28 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../provider/AuthProvider";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 
 const Bookings = () => {
     const { user } = useContext(AuthContext)
     const [booking, setBooking] = useState([])
+    const axiosSecure = useAxiosSecure()
 
-    const url = `http://localhost:5000/bookings?email=${user.email}`
+    const url = `/bookings?email=${user.email}`
     useEffect(() => {
-        axios.get(url,{withCredentials: true})
+        // axios.get(url,{withCredentials: true})
+        //     .then(res => {
+        //         console.log(res.data);
+        //         setBooking(res.data)
+
+        //     })
+        axiosSecure.get(url)
             .then(res => {
-                console.log(res.data);
                 setBooking(res.data)
-                
             })
-    }, [url])
-    console.log(booking);
+            
+    }, [url, axiosSecure])
 
     const handleDelete = (id) => {
         console.log(id);
